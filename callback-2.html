@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head><title>Connecting...</title></head>
+<body>
+<script>
+  // Extract token from hash and send to opener window
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get('code');
+  const error = params.get('error');
+  if (code && window.opener) {
+    window.opener.postMessage({ spotifyCode: code }, '*');
+    window.close();
+  } else if (error && window.opener) {
+    window.opener.postMessage({ spotifyError: error }, '*');
+    window.close();
+  } else {
+    document.body.innerText = 'Something went wrong. You can close this tab.';
+  }
+</script>
+</body>
+</html>
