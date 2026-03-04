@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head><title>Connecting...</title></head>
+<body>
+<script>
+  // Extract token from hash and send to opener window
+  const hash = window.location.hash.substring(1);
+  const params = new URLSearchParams(hash);
+  const token = params.get('access_token');
+  if (token && window.opener) {
+    window.opener.postMessage({ spotifyToken: token }, '*');
+    window.close();
+  } else {
+    document.body.innerText = 'Something went wrong. You can close this tab.';
+  }
+</script>
+</body>
+</html>
